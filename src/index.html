@@ -2,10 +2,29 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Составитель фраз League of Legends Wiki</title>
   </head>
   <body>
-    <input type="file" id="csv"></input>
-    <button>Составить викитекст</button>
+    <div>
+      Данная программа берет предварительно составленный CSV файл и преобразует его в викитекст.
+    </div>
+    <div>
+      <input type="file" id="csv"/><br/>
+      <label>Имя чемпиона</label><input type="text" id="championInput" autofocus/><br/>
+      <label>Основной образ</label><input type="text" id="skinInput"/>
+    </div>
+    <div>
+      <label>Опции</label>
+      <form>
+        <input type="checkbox" id="severalSkins" value="true"/>
+        <label>Несколько образов</label><br/>
+        <input type="checkbox" id="customNames" value="true"/>
+        <label>Использовать пользовательские имена файлов</label><br/>
+      </form>
+    </div>
+    <div>
+      <button type="submit" id="submit">Составить викитекст</button>
+    </div>
+    <script src="button-script.js"></script>
   </body>
 </html>

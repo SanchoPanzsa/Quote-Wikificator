@@ -1,6 +1,7 @@
 {
   "extends": "eslint-config-airbnb",
   "rules": {
+    "keyword-spacing": ["error", { "after": false }],
     "import/extensions": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": [2, { "ignore": ["electron"] }],
