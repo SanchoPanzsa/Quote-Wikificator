@@ -1,8 +1,8 @@
 {
-  "name": "simple-electron-app",
-  "productName": "simple-electron-app",
+  "name": "quotes-wikificator",
+  "productName": "LoL Quotes Wikificator",
   "version": "0.1.0",
-  "description": "My Electron application description",
+  "description": "Данная программа преобразует CSV файл с транскрипциями фраз чемпионов в викитекст.",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -12,7 +12,7 @@
     "lint": "eslint src --color"
   },
   "keywords": [],
-  "author": "Zelgadis",
+  "author": "Mortorium",
   "license": "MIT",
   "config": {
     "forge": {

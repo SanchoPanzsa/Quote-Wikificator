@@ -1,7 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-use-before-define */
-/* eslint-disable keyword-spacing */
 /* eslint-disable no-restricted-syntax */
 
 const csv = require('csv-parser');
@@ -20,12 +19,12 @@ const quoteLine = [
 
 /**
  * Создает объект с калибровочными флагами
- * @param {Boolean} numericalName Флаг, обозначающий, что имена файлов нумерованные
  * @param {Boolean} severalSkins Флаг, обозначающий, что нужно указывать несколько образов
+ * @param {Boolean} customNames Флаг, обозначающий, что имена файлов пользовательские (не номера)
  */
-function Flags(numericalName, severalSkins) {
-  this.numericalName = numericalName;
+function Flags(severalSkins, customNames) {
   this.severalSkins = severalSkins;
+  this.customNames = customNames;
   return this;
 }
 
@@ -36,9 +35,9 @@ let mainSkin = 'Классический';
 export function initializeQuoteProcessing(championName,
   skin,
   filepath,
-  numericalName = true,
-  severalSkins = false) {
-  flags = new Flags(numericalName, severalSkins);
+  severalSkins = false,
+  customNames = true) {
+  flags = new Flags(severalSkins, customNames);
   champion = championName;
   mainSkin = skin;
   return retrieveCSV(filepath);
@@ -54,7 +53,7 @@ function retrieveCSV(filepath, delimiter = ';') {
   if(filepath.substr(-3).toLowerCase() !== 'csv') {
     throw new SyntaxError('Файл не является CSV');
   }
-  const promise = new Promise(function(resolve, reject) {
+  const promise = new Promise((resolve, reject) => {
     fs.createReadStream(filepath, 'utf-8')
     .pipe(csv({
       headers: quoteLine,
@@ -85,7 +84,7 @@ function processCSV(quotes) {
   let currentSubHeader = 'Нет';
   let wikitext = '';
 
-  for (const x of quotes) {
+  for(const x of quotes) {
     wikitext += processLine(x);
   }
 
@@ -93,7 +92,7 @@ function processCSV(quotes) {
     let block = '';
     if(CSVLine.header === currentHeader) {
       if(CSVLine.subheader === currentSubHeader) {
-        if (flags.severalSkins) {
+        if(flags.severalSkins) {
           const audios = CSVLine.filename.split(',');
           const skins = CSVLine.skin.split(',');
           block += `* ${makeQuoteLine(audios[0], '', skins[0])}`;
@@ -124,11 +123,11 @@ function processCSV(quotes) {
 
   function makeQuoteLine(filename, transcribe, currentSkin = mainSkin) {
     let line = '{{фч|';
-    line += flags.numericalName ? `${champion}.${currentSkin}${filename}.ogg` : `${filename}.ogg`;
+    line += !flags.customNames ? `${champion}.${currentSkin}${filename}.ogg` : `${filename}.ogg`;
     if(transcribe === '') {
-      line += flags.severalSkins ? `||${currentSkin}}}` : '}}';
+      line += !flags.customNames ? `||${champion}|${currentSkin}}}` : '}}';
     } else {
-      line += flags.severalSkins ? `|${transcribe}|${currentSkin}}}` : `|${transcribe}}}\r\n`;
+      line += !flags.customNames ? `|${transcribe}|${champion}|${currentSkin}}}` : `|${transcribe}}}\r\n`;
     }
     return line;
   }

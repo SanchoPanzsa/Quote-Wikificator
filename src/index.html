@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Составитель фраз League of Legends Wiki</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" >
   </head>
   <body>
-    <div>
-      Данная программа берет предварительно составленный CSV файл и преобразует его в викитекст.
-    </div>
-    <div>
+    <header class="header">
+      <span class="header__text">
+        Данная программа берет предварительно составленный CSV файл и преобразует его в викитекст.
+      </span>
+    </header>
+    <div class="menu">
       <input type="file" id="csv"/><br/>
       <label>Имя чемпиона</label><input type="text" id="championInput" autofocus/><br/>
       <label>Основной образ</label><input type="text" id="skinInput"/>
-    </div>
-    <div>
+      <br/>
       <label>Опции</label>
       <form>
         <input type="checkbox" id="severalSkins" value="true"/>
@@ -22,9 +24,17 @@
         <label>Использовать пользовательские имена файлов</label><br/>
       </form>
     </div>
-    <div>
+    <div class="menu">
       <button type="submit" id="submit">Составить викитекст</button>
     </div>
+    <div class="menu">
+      <textarea id="infoArea" style="z-index:5;" readonly rows="5"></textarea>
+    </div>
+    <footer class="footer">
+      <span class="footer__text">
+        <a href="https://leagueoflegends.fandom.com/ru/wiki/User:Mortorium">By Sancho Pansa</a>
+      </span>
+    </footer>
     <script src="button-script.js"></script>
   </body>
 </html>

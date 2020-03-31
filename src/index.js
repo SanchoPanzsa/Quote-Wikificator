@@ -1,5 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import {initializeQuoteProcessing} from './CSVProcessor.js';
+import { initializeQuoteProcessing } from './CSVProcessor.js';
 
 const fs = require('fs').promises;
 
@@ -57,11 +57,11 @@ app.on('activate', () => {
 });
 
 ipcMain.on('asynchronous-message', (event, arg) => {
-  console.log('pushed');
-  const[champion, skin, filename] = arg;
-  const promise = initializeQuoteProcessing(champion, skin, filename, true, false);
+  const[champion, skin, filename, severalSkins, customNames] = arg;
+  const promise = initializeQuoteProcessing(champion, skin, filename, severalSkins, customNames);
   promise.then((result) => {
     fs.writeFile('Wikitext.txt', result);
+    event.sender.send('asynchronous-reply', 'Файл создан');
   });
 });
 // In this file you can include the rest of your app's specific main process

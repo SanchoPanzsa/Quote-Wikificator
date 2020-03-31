@@ -7,11 +7,22 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Electron Main",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "program": "${workspaceFolder}\\src\\index.js",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Program",
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}\\src\\index.js"
+      "program": "${workspaceFolder}\\src\\CSVProcessor.js"
     }
   ]
 }
