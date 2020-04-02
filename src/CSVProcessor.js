@@ -96,10 +96,12 @@ function processCSV(quotes) {
           const audios = CSVLine.filename.split(',');
           const skins = CSVLine.skin.split(',');
           block += `* ${makeQuoteLine(audios[0], '', skins[0])}`;
-          for(let i = 1; i < audios.length - 1; i++) {
-            block += `${makeQuoteLine(audios[i], '', skins[i])}`;
+          if(audios.length > 0) {
+            for(let i = 1; i < audios.length - 1; i++) {
+              block += `${makeQuoteLine(audios[i], '', skins[i])}`;
+            }
+            block += `${makeQuoteLine(audios[audios.length - 1], CSVLine.transcribe, skins[skins.length - 1])}\r\n`;
           }
-          block += `${makeQuoteLine(audios[audios.length - 1], CSVLine.transcribe, skins[skins.length - 1])}\r\n`;
         } else {
           block += `* ${makeQuoteLine(CSVLine.filename, CSVLine.transcribe, mainSkin)}\r\n`;
         }
@@ -127,7 +129,7 @@ function processCSV(quotes) {
     if(transcribe === '') {
       line += !flags.customNames ? `||${champion}|${currentSkin}}}` : '}}';
     } else {
-      line += !flags.customNames ? `|${transcribe}|${champion}|${currentSkin}}}` : `|${transcribe}}}\r\n`;
+      line += flags.severalSkins ? `|${transcribe}|${champion}|${currentSkin}}}` : `|${transcribe}}}`;
     }
     return line;
   }
