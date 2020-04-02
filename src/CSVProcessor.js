@@ -101,7 +101,7 @@ function processCSV(quotes) {
           }
           block += `${makeQuoteLine(audios[audios.length - 1], CSVLine.transcribe, skins[skins.length - 1])}\r\n`;
         } else {
-          block += `* ${makeQuoteLine(CSVLine.filename, CSVLine.transcribe, mainSkin)}`;
+          block += `* ${makeQuoteLine(CSVLine.filename, CSVLine.transcribe, mainSkin)}\r\n`;
         }
       } else {
         currentSubHeader = CSVLine.subheader;
