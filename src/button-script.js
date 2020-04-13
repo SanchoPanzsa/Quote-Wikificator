@@ -6,6 +6,7 @@ const championInput = document.getElementById('championInput');
 const skinInput = document.getElementById('skinInput');
 const severalSkinsCheck = document.getElementById('severalSkins');
 const customNamesCheck = document.getElementById('customNames');
+const textOnlyCheck = document.getElementById('textOnly');
 const submitButton = document.getElementById('submit');
 const infoArea = document.getElementById('infoArea');
 
@@ -15,6 +16,7 @@ submitButton.onclick = function() {
   const skin = skinInput.value;
   const severalSkins = severalSkinsCheck.checked;
   const customNames = customNamesCheck.checked;
+  const textOnly = textOnlyCheck.checked;
   if(filepath === undefined) {
     addMessage('Не указан файл');
     return;
@@ -38,7 +40,11 @@ submitButton.onclick = function() {
     addMessage('Используются пользовательские имена');
   }
 
-  ipcRenderer.send('asynchronous-message', [champion, skin, filepath.path, severalSkins, customNames]);
+  if(textOnly) {
+    addMessage('Создается текст без разметки');
+  }
+
+  ipcRenderer.send('asynchronous-message', [champion, skin, filepath.path, severalSkins, customNames, textOnly]);
   addMessage('Файл обрабатывается');
 };
 

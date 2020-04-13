@@ -21,14 +21,16 @@ const quoteLine = [
  * Создает объект с калибровочными флагами
  * @param {Boolean} severalSkins Флаг, обозначающий, что нужно указывать несколько образов
  * @param {Boolean} customNames Флаг, обозначающий, что имена файлов пользовательские (не номера)
+ * @param {Boolean} textOnly Флаг, обозначающий, что нужно заполнить только текст без разметки
  */
-function Flags(severalSkins, customNames) {
+function Flags(severalSkins, customNames, textOnly) {
   this.severalSkins = severalSkins;
   this.customNames = customNames;
+  this.textOnly = textOnly;
   return this;
 }
 
-let flags = new Flags(true, false);
+let flags = new Flags(true, false, false);
 let champion = '';
 let mainSkin = 'Классический';
 
@@ -36,8 +38,9 @@ export function initializeQuoteProcessing(championName,
   skin,
   filepath,
   severalSkins = false,
-  customNames = true) {
-  flags = new Flags(severalSkins, customNames);
+  customNames = true,
+  textOnly = false) {
+  flags = new Flags(severalSkins, customNames, textOnly);
   champion = championName;
   mainSkin = skin;
   return retrieveCSV(filepath);
@@ -59,12 +62,6 @@ function retrieveCSV(filepath, delimiter = ';') {
       headers: quoteLine,
       skipLines: 1,
       separator: delimiter,
-      /*mapValues: ({ header, value }) => {
-        if(header === 'filename') {
-          return value === undefined ? '' : value;
-        }
-        return value;
-      },*/
     }))
     .on('data', data => result.push(data))
     .on('end', () => {
@@ -124,6 +121,9 @@ function processCSV(quotes) {
   }
 
   function makeQuoteLine(filename, transcribe, currentSkin = mainSkin) {
+    if(flags.textOnly) {
+      return transcribe;
+    }
     let line = '{{фч|';
     line += !flags.customNames ? `${champion}.${currentSkin}${filename}.ogg` : `${filename}.ogg`;
     if(transcribe === '') {

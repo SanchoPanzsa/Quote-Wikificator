@@ -57,8 +57,8 @@ app.on('activate', () => {
 });
 
 ipcMain.on('asynchronous-message', (event, arg) => {
-  const[champion, skin, filename, severalSkins, customNames] = arg;
-  const promise = initializeQuoteProcessing(champion, skin, filename, severalSkins, customNames);
+  const [champion, skin, filename, severalSkins, customNames, textOnly] = arg;
+  const promise = initializeQuoteProcessing(champion, skin, filename, severalSkins, customNames, textOnly);
   promise.then((result) => {
     fs.writeFile('Wikitext.txt', result);
     event.sender.send('asynchronous-reply', 'Файл создан');
