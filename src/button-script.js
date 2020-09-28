@@ -8,6 +8,7 @@ const severalSkinsCheck = document.getElementById('severalSkins');
 const customNamesCheck = document.getElementById('customNames');
 const textOnlyCheck = document.getElementById('textOnly');
 const submitButton = document.getElementById('submit');
+const resetButton = document.getElementById('reset');
 const infoArea = document.getElementById('infoArea');
 
 submitButton.onclick = function() {
@@ -47,6 +48,10 @@ submitButton.onclick = function() {
   ipcRenderer.send('asynchronous-message', [champion, skin, filepath.path, severalSkins, customNames, textOnly]);
   addMessage('Файл обрабатывается');
 };
+
+resetButton.onclick = function() {
+  infoArea.value = "";
+}
 
 ipcRenderer.on('asynchronous-reply', (event, arg) => {
   addMessage(arg);

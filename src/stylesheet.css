@@ -4,6 +4,7 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+
 .header {
   text-align:center;
 }
@@ -12,11 +13,30 @@ body {
   font-size:16pt;
 }
 
-.menu {
+.wrapper {
+  display: flex;
+}
+
+.menu__control > label, .menu__control > button {
+  margin-top: 3em;
+}
+
+.menu__control, .menu__output {
   display: flex;
   flex-direction: column;
   margin-top: 5%;
   padding: 0 5%;
+  width: 45%;
+}
+
+.menu__control__button {
+  height: 3em;
+}
+
+.menu__output__textarea {
+  height: 100%;
+  z-index:5;
+  resize: none;
 }
 
 .footer {

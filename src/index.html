@@ -8,30 +8,32 @@
   <body>
     <header class="header">
       <span class="header__text">
-        Данная программа берет предварительно составленный CSV файл и преобразует его в викитекст.
+        Викификатор фраз чемпиона League of Legends
       </span>
     </header>
-    <div class="menu">
-      <input type="file" id="csv"/><br/>
-      <label>Имя чемпиона</label><input type="text" id="championInput" autofocus/><br/>
-      <label>Основной образ</label><input type="text" id="skinInput"/>
-      <br/>
-      <label>Опции</label>
-      <form>
-        <input type="checkbox" id="severalSkins" value="true"/>
-        <label>Несколько образов</label><br/>
-        <input type="checkbox" id="customNames" value="true"/>
-        <label>Использовать пользовательские имена файлов</label><br/>
-        <input type="checkbox" id="textOnly" value="true"/>
-        <label>Без аудиошаблонов</label><br/>
-      </form>
-    </div>
-    <div class="menu">
-      <button type="submit" id="submit">Составить викитекст</button>
-    </div>
-    <div class="menu">
-      <textarea id="infoArea" style="z-index:5;" readonly rows="5"></textarea>
-    </div>
+    <article class="wrapper">
+      <div class="menu__control">
+        <input type="file" id="csv" accept=".csv" /><br/>
+        <label>Имя чемпиона</label><input type="text" id="championInput" autofocus/><br/>
+        <label>Основной образ</label><input type="text" id="skinInput"/>
+        <br/>
+        <label>Опции</label>
+        <form>
+          <input type="checkbox" id="severalSkins" value="true"/>
+          <label>Несколько образов</label><br/>
+          <input type="checkbox" id="customNames" value="true"/>
+          <label>Использовать пользовательские имена файлов</label><br/>
+          <input type="checkbox" id="textOnly" value="true"/>
+          <label>Без аудиошаблонов</label><br/>
+        </form>
+        <button class="menu__control__button" type="submit" id="submit">Составить викитекст</button>
+        <button class="menu__control__button" type="reset" id="reset">Сброс</button>
+      </div>   
+      <div class="menu__output">
+        <span>Вывод</span>
+        <textarea id="infoArea" class="menu__output__textarea" readonly></textarea>
+      </div>
+    </article> 
     <footer class="footer">
       <span class="footer__text">
         <a href="https://leagueoflegends.fandom.com/ru/wiki/User:Mortorium">By Sancho Pansa</a>
